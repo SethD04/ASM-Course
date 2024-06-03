@@ -1,8 +1,15 @@
 set disassembly-flavor intel
-set step-mode on
-tui enable
-layout asm
-layout regs
-winheight asm +3
-winheight regs -2
-refresh
+
+define hook-stop
+echo -------------- $PC -------------------\n
+x/7i $pc
+echo -------------- PARAMS ----------------\n
+info reg rdi rsi rdx rcx r8 r9 rax
+echo -------------- $SP -------------------\n
+x/4gx $rsp
+echo ---------- Format String -------------\n
+x/s $rdi
+echo ----------- Other Regs ---------------\n
+info reg rbx r12
+echo -------------- END -------------------\n
+end
