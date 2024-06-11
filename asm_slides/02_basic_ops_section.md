@@ -194,6 +194,58 @@ After a `pop` operation:
 
 ---
 
+## Example
+  ```nasm
+  section .text
+  global _start
+
+  _start:
+      call my_function
+      ; Exit the program
+      mov eax, 60         ; syscall: exit
+      xor edi, edi        ; status: 0
+      syscall
+
+  my_function:
+      ; Function prologue
+      push rbp            ; Save base pointer
+      mov rbp, rsp        ; Set base pointer to stack pointer
+
+      ; Function body (local variables on stack)
+      sub rsp, 16         ; Allocate space for local variables
+      mov [rbp-4], dword 10 ; Example local variable
+
+      ; Function epilogue
+      mov rsp, rbp        ; Restore stack pointer
+      pop rbp             ; Restore base pointer
+      ret                 ; Return to caller
+  ```
+
+Before `sub rsp, 16`
+
+  ```nasm
+  | Higher memory addresses         |
+  | ------------------------------- |
+  | Old RBP (previous stack frame)  | <- RBP (and RSP) |
+  | ------------------------------- |
+  |                                 |
+  |                                 |
+  | Lower memory addresses          |
+  ```
+
+After `sub rsp, 16`
+
+  ```nasm
+  | Higher memory addresses         |
+  | ------------------------------- |
+  | Old RBP (previous stack frame)  | <- RBP |
+  | ------------------------------- |
+  | Local variable space (16 bytes) |
+  | ------------------------------- |
+  |                                 | <- RSP |
+  | Lower memory addresses          |
+  ```
+
 ## Lab 4: Stack Operations
 
 * Copy the Lab4 folder (and its contents).
