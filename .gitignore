@@ -1,3 +1,4 @@
 build
 *.tar.gz
 *.zip
+a.out
