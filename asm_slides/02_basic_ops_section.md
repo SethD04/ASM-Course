@@ -201,8 +201,8 @@ After a `pop` operation:
 * Build and run using the following commands:
 
   ```bash
-  ~/Desktop/Lab4 $ cmake . && cmake --build .
-  ~/Desktop/Lab4 $ ./lab4
+  cmake . && cmake --build .
+  ./lab4
   ```
 
 ---
