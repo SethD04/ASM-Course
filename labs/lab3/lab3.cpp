@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
     printf("Preparing to run the fourth function (division)\n");
     retval = fourth_func();
-    EQ((size_t)5, fourth_func());
+    EQ((size_t)6, fourth_func());
 
     printf("Preparing to run the fifth function (remainder)\n");
     retval = fifth_func();
