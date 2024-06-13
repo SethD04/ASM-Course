@@ -3,6 +3,7 @@
 ## Basic Operations
 
 ### Objectives
+
 * Utilize basic arithmetic and bit operations.
 * Understand the difference between signed and unsigned values from an assembly perspective.
 * Understand the Two's Complement representation of signed numbers.
@@ -17,25 +18,27 @@
 #### The `add` and `sub` Instructions
 
 **Description**:
-- Adds and subtracts arbitrary values.
-- The destination (where the result is stored) is the first value provided.
+
+* Adds and subtracts arbitrary values.
+* The destination (where the result is stored) is the first value provided.
 
 **Basic Use**:
-- To add, use `mov` to place a value into a register. `add` will take the value on the right and add it to the value currently in the register. The sum is stored back in the register.
+
+* To add, use `mov` to place a value into a register. `add` will take the value on the right and add it to the value currently in the register. The sum is stored back in the register.
 
   ```nasm
   mov rax, 1 ; move 1 into rax
   add rax, 2 ; adds 2 to rax, rax now contains 3
   ```
 
-- To subtract, use `mov` to place a value into a register. `sub` will take the value on the right and subtract it from what's currently in the register. The difference is stored back in the register.
+* To subtract, use `mov` to place a value into a register. `sub` will take the value on the right and subtract it from what's currently in the register. The difference is stored back in the register.
 
   ```nasm
   mov rax, 2
   sub rax, 2 ; subtracts 2 from rax, rax now contains 0
   ```
 
-- We can use a combination of registers and immediates as operands:
+* We can use a combination of registers and immediates as operands:
 
   ```nasm
   mov rax, 1
@@ -49,7 +52,8 @@
 #### The `mul` Instruction
 
 **Description**:
-- Allows multiplication of arbitrary values. Takes a single argument, multiplies by `rax/eax/ax` (depending on operand size).
+
+* Allows multiplication of arbitrary values. Takes a single argument, multiplies by `rax/eax/ax` (depending on operand size).
 
 **Basic Use**:
 
@@ -76,7 +80,8 @@ Results are stored in the source (possible), or in a combination of registers in
 #### The `div` Instruction
 
 **Description**:
-- As with `mul`, `div` takes a single argument and divides the value stored in the dividend register(s) by it. This is typically `ax/eax/rax` (and the `*dx` equivalents), but may vary a bit depending on the size (chart provided below).
+
+* As with `mul`, `div` takes a single argument and divides the value stored in the dividend register(s) by it. This is typically `ax/eax/rax` (and the `*dx` equivalents), but may vary a bit depending on the size (chart provided below).
 
 **Basic Use**:
 
@@ -98,7 +103,8 @@ Where to retrieve the results of a `div` from depends on the size of the argumen
 #### `inc` and `dec`
 
 **Description**:
-- Adds or subtracts one from the provided register, storing the result in place.
+
+* Adds or subtracts one from the provided register, storing the result in place.
 
 **Basic Use**:
 
@@ -127,10 +133,12 @@ Where to retrieve the results of a `div` from depends on the size of the argumen
 ## The Stack
 
 ### Stack Basics
+
 * Grows from high memory to low memory.
 * Current function typically exists within a stack "frame" (but not always!).
 
 ### Stack Frames
+
 * `RSP` (or `ESP`) points to the top of the stack.
 * `RBP` (or `EBP`) points to the "base" of the stack frame.
 
@@ -139,6 +147,7 @@ Where to retrieve the results of a `div` from depends on the size of the argumen
 ![stack frame layout](images/section_2_stack_diagram_1.jpg)
 
 ### Expanding the Stack Frame
+
 * Can modify the value of `RSP` directly to allocate more stack space:
 
   ```nasm
@@ -152,25 +161,28 @@ Where to retrieve the results of a `div` from depends on the size of the argumen
   ```
 
 ### Stack Alignment
+
 * x86_64 expects 16 byte stack alignment.
 * Allocating odd amounts of space can cause things to break.
 * ALWAYS make sure you clean up your stack before returning.
 
 ### GDB - Stack Frames
+
 * Examining the Call Stack (backtrace / bt).
 * Frames and information:
-    * `frame` or `f` - Get information about the current frame.
-    * `info args` - Get information about function arguments.
-    * `info locals` - Information about local variables.
+  * `frame` or `f` - Get information about the current frame.
+  * `info args` - Get information about function arguments.
+  * `info locals` - Information about local variables.
 
 May be appropriate to demo GDB and stack frames.
 
 ### New Instructions: `push` and `pop`
 
 **Description**:
-- `push` will subtract a pointer-width amount of space from `RSP`, and place the argument in the newly-allocated location.
-- `pop` performs the opposite action, storing the value just below `RSP` in the register provided, and adding a pointer-width amount to `RSP`.
-- For every `push`, you will need to `pop`!
+
+* `push` will subtract a pointer-width amount of space from `RSP`, and place the argument in the newly-allocated location.
+* `pop` performs the opposite action, storing the value just below `RSP` in the register provided, and adding a pointer-width amount to `RSP`.
+* For every `push`, you will need to `pop`!
 
 **Basic Use**:
 
@@ -195,6 +207,7 @@ After a `pop` operation:
 ---
 
 ## Example
+
   ```nasm
   section .text
   global _start
@@ -270,6 +283,7 @@ After `sub rsp, 16`
 On understanding Two's Complement: think of what happens when a mechanical counter (like the one pictured on the slide) counts down to zero, and rolls over. You might see it flip all the numbers over: e.g., 9999.
 
 ### Two's Complement Steps
+
 * Invert the bits of the number (in binary), and add one!
 
 ![two's complement steps](images/section_2_twos_complement_p1.jpg)
@@ -288,6 +302,7 @@ Example: Adding 2 and -1
   ```
 
 ### Sub Registers and Sign Extending
+
 * When copying smaller data into a register, sign extending may be used (rather than zero extending).
 * Sign extending preserves the "signed" attributes of the data being copied.
 * The `movsx` instruction (just like `movzx`) handles this.
@@ -295,7 +310,8 @@ Example: Adding 2 and -1
 ### The `movsx` Instruction
 
 **Description**:
-- Much like `movzx`, `movsx` can be used to move data into a portion of a larger register while preserving its sign.
+
+* Much like `movzx`, `movsx` can be used to move data into a portion of a larger register while preserving its sign.
 
 **Basic Use**:
 
@@ -436,7 +452,7 @@ Instruction:
 
 * Arithmetic Operations
 * The Stack
-    * Stack Frames
-    * Stack Alignment
+  * Stack Frames
+  * Stack Alignment
 * Signed Values and Two's Complement
 * Bit Operations

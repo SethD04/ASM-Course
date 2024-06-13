@@ -71,14 +71,14 @@ content:
 
 ## Assembly Instructions and Opcodes
 
-### This set of instructions:
+### This set of instructions
 
 ```nasm
 mov eax, 0x01
 ret
 ```
 
-### Becomes...
+### Becomes
 
 ### This set of opcodes
 
@@ -120,8 +120,8 @@ movl $0x01, %eax
 - **Little Endian:** Puts the least significant (or little) value first.
   - The memory address: 0x10203040 would appear as: 0x40 0x30 0x20 0x10.
 
-* x86(_64) is little Endian.
-* Again, least significant byte (not bit) appears first.
+- x86(_64) is little Endian.
+- Again, least significant byte (not bit) appears first.
 
 In memory, this address:
 
@@ -260,7 +260,7 @@ mov rcx, [rcx] ; copy the data from addr 0xc0ffee into rcx
 
 *Please note that this replaces the old value in rcx, which was just the address we were accessing.*
 
-## Now, for our first instruction...
+## Now, for our first instruction
 
 ### NOP
 
@@ -271,9 +271,9 @@ mov rcx, [rcx] ; copy the data from addr 0xc0ffee into rcx
 
 - We will be using the GNU Project Debugger (GDB)
 - Command Line Debugger, provides a large set of features
-    - Natively supports Python scripting
-    - Supports a large number of architectures (and even quite a few languages)
-    - Provides a Text User Interface (TUI) mode
+  - Natively supports Python scripting
+  - Supports a large number of architectures (and even quite a few languages)
+  - Provides a Text User Interface (TUI) mode
 - Setting breakpoints programmatically may be difficult at times
 - A good strategy may include applying breakpoints directly in your code for debugging purposes
 - Fortunately, an assembly instruction exists for doing just this:
@@ -293,13 +293,13 @@ breakpoints liberally!*
 
 ## Debugging With GDB
 
-### Preconfiguration:
+### Preconfiguration
 
 - .gdbinit provides a way to run a number of setup commands on launch
 - Simply copy the config file to your home directory:
 
 ```bash
-$ cp sample-gdbinit ~/.gdbinit
+cp sample-gdbinit ~/.gdbinit
 ```
 
 Launching a program with GDB:
@@ -326,7 +326,7 @@ Launching a program with GDB:
 - info break - shows us information about all currently set breakpoints
 - Removing breakpoints (clear and delete)
 
-### Example:
+### Example
 
 ```bash
     (gdb) break myfunc
@@ -346,12 +346,11 @@ Launching a program with GDB:
 
 ## Memory Access - `mov`
 
-### Description
+**Description**:
 
 Moves a small block of memory from a source (the right-hand operand) to destination (the left operand). An amount of data may be specified (more on this later).
 
-
-### Basic Use
+**Basic Use**:
 
 ```nasm
     mov rax, 0x01            ; immediate - rax is now 1
@@ -365,11 +364,11 @@ right), to destination (the operand on the left).*
 
 ## Memory Access - `lea`
 
-### Description
+**Description**:
 
 Calculates an address, but does not actually attempt to access it.
 
-### Basic Use
+**Basic Use**:
 
 ```nasm
     ; calculate an address by taking the address
@@ -383,16 +382,16 @@ Calculates an address, but does not actually attempt to access it.
 
 ## Memory Access - `xchg`
 
-### Description
+**Description**:
 
 Exchanges the values provided atomically (more on this later).
 
-### Basic Use
+**Basic Use**:
 
 ```nasm
-	xchg rax, rcx   ; exchange two register values
-	; exchange a register value with a value stored in memory
-	xchg rax, [rcx] 
+ xchg rax, rcx   ; exchange two register values
+ ; exchange a register value with a value stored in memory
+ xchg rax, [rcx] 
 ```
 
 ## Lab 1
@@ -435,7 +434,7 @@ cmake . && cmake --build .
 
 - We can use GDB to examing various places in memory with "x" (for "eXamine")
 - x has several options:
-  - x/nfu - where n is the Number of things to examine, f is the Format, and u is the Unit size 
+  - x/nfu - where n is the Number of things to examine, f is the Format, and u is the Unit size
   - x addr
   - x $\<register\> - examines the memory address pointed to by the register
 
@@ -450,7 +449,7 @@ cmake . && cmake --build .
 - Example: Disassembling at RIP
 
 ```bash
-	(gdb) x/i $rip
+ (gdb) x/i $rip
 ```
 
 ## GDB Unit Sizes
@@ -462,7 +461,7 @@ cmake . && cmake --build .
   - w - Words (4 bytes, equivalent to dwords)
   - g - Giant words (8 bytes, equivalent to qwords)
 
-*Demo - Dumping memory via GDB*
+  *Demo - Dumping memory via GDB*
 
 ## Sub Registers
 
@@ -476,26 +475,26 @@ cmake . && cmake --build .
 - When accessing memory, amount of data to copy can be specified
 
 ```nasm
-	mov al, byte [rsi]   ; copy a single byte
-	mov eax, dword [rcx] ; copy a dword (4 bytes)
-	mov rax, qword [rsi] ; copy a qword (8 bytes)
+ mov al, byte [rsi]   ; copy a single byte
+ mov eax, dword [rcx] ; copy a dword (4 bytes)
+ mov rax, qword [rsi] ; copy a qword (8 bytes)
 ```
 
 - Also, data can be copied from subregister to subregister
 
 ```nasm
-	mov al, cl  ; copy from cl to al
-	xchg al, ah ; exchange the low and high bytes in ax
+ mov al, cl  ; copy from cl to al
+ xchg al, ah ; exchange the low and high bytes in ax
 ```
 
 ## Register Access - `movzx`
 
-### Description
+**Description**:
 
 Move with zero extend. When moving data that is smaller than the destination size,
 zero out the remaining bits.
 
-### Basic Use
+**Basic Use**:
 
 ```nasm
     movzx rax, cl ; everything above al is now set to 0
@@ -509,7 +508,6 @@ Using subregisters, accessing smaller values, and zero extending.
 - Copy the Lab2 folder (and its contents)
 - Modify the \*.nasm file (Each function should have a comment block - lines starting with ';' containing instructions)
 - Build and run using the following commands:
-
 
 ```bash
 cmake . && cmake --build .
