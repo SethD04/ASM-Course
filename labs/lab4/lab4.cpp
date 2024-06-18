@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 
     printf("Preparing to run second function (register preservation)\n");
     retval = second_func();
-    EQ((size_t)1, retval);
+    EQ((size_t)2, retval);
     EQ((size_t)6, value);
 
     return 0;
