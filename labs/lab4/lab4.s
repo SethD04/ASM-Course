@@ -18,6 +18,12 @@ first_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    cmp rsp, rbp
+    je .nsc
+    jmp .end
+.nsc:
+    sub rsp, 8
+.end:
     pop rax
     pop rbp
     ret
