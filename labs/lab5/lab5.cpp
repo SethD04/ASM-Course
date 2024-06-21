@@ -6,7 +6,7 @@
 
 extern "C"
 {
-    unsigned char value[] = {0x9f, 0xb9, 0xaf, 0xaf, 0xa9, 0xbf, 0xbf, 0xed};
+    unsigned char value[] = {0xe8, 0xce, 0xd8, 0xd8, 0xde, 0xc8, 0xc8, 0x9a};
     char second_value[] = {'e', 's', 's', '!', 'S', 'u', 'c', 'c'};
     char *value_outbuf = NULL;
     char *second_outbuf = NULL;
