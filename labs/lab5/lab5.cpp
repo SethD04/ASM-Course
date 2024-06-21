@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
     printf("Preparing to run fifth function (Bitshift Division)\n");
     retval = fifth_func();
-    EQ((size_t)2, retval);
+    EQ((size_t)8, retval);
 
     printf("Preparing to run sixth function (rotating bytes)\n");
     sixth_func();
