@@ -331,17 +331,67 @@ cmake . && cmake --build .
 * Move String - movs(b/w/d/q) - Copies data from RSI into RDI, and increments both pointers.
 * Compare String - cmps(b/w/d/q) - Compares the values stored at RSI and RDI, and increments the pointer, updating the RFLAGS (or EFLAGS) register with the result.
 
+## 1. Scan String - `scas(b/w/d/q)`
+
+* **Purpose:** Scans a string located at RDI for a value found in RAX/EAX/AX/AL (depending on the operand size used).
+* **Action:** Compares the value at the current RDI pointer location with the value in RAX/EAX/AX/AL, and increments (or decrements if the direction flag is set) the RDI pointer.
+* **Usage Example:**
+  * `scasb` scans a byte
+  * `scasw` scans a word
+  * `scasd` scans a doubleword
+  * `scasq` scans a quadword
+
+## 2. Store String - `stos(b/w/d/q)`
+
+* **Purpose:** Stores a value from RAX/EAX/AX/AL into the string located at RDI.
+* **Action:** Copies the value from RAX/EAX/AX/AL to the location pointed to by RDI and increments (or decrements if the direction flag is set) the RDI pointer.
+* **Usage Example:**
+  * `stosb` stores a byte
+  * `stosw` stores a word
+  * `stosd` stores a doubleword
+  * `stosq` stores a quadword
+
+## 3. Load String - `lods(b/w/d/q)`
+
+* **Purpose:** Loads a value from a string located at RSI into RAX/EAX/AX/AL.
+* **Action:** Copies the value from the location pointed to by RSI into RAX/EAX/AX/AL and increments (or decrements if the direction flag is set) the RSI pointer.
+* **Usage Example:**
+  * `lodsb` loads a byte
+  * `lodsw` loads a word
+  * `lodsd` loads a doubleword
+  * `lodsq` loads a quadword
+
+## 4. Move String - `movs(b/w/d/q)`
+
+* **Purpose:** Moves data from a string located at RSI to a string located at RDI.
+* **Action:** Copies the value from the location pointed to by RSI into the location pointed to by RDI, and increments (or decrements if the direction flag is set) both the RSI and RDI pointers.
+* **Usage Example:**
+  * `movsb` moves a byte
+  * `movsw` moves a word
+  * `movsd` moves a doubleword
+  * `movsq` moves a quadword
+
+## 5. Compare String - `cmps(b/w/d/q)`
+
+* **Purpose:** Compares values in two strings located at RSI and RDI.
+* **Action:** Compares the value at the current RSI pointer location with the value at the current RDI pointer location, increments (or decrements if the direction flag is set) both pointers, and updates the RFLAGS (or EFLAGS) register based on the result of the comparison.
+* **Usage Example:**
+  * `cmpsb` compares a byte
+  * `cmpsw` compares a word
+  * `cmpsd` compares a doubleword
+  * `cmpsq` compares a quadword
+
 ------------------------------------------------------------------------
 
 ## Prefixes
 
-* Several instruction prefixes available to modify behavior - looping the instruction over a section of memory
-* All of them tend to use RCX/ECX/etc as a termination condition - decrementing each execution
+* Several instruction prefixes are available to modify behavior, often looping the instruction over a section of memory.
+* All of them tend to use RCX/ECX/etc. as a termination condition, decrementing with each execution.
 * Some prefixes available:
-  * REP - continue performing the action RCX times.
-  * REPNE - continue performing the action RCX times, or until the FLAGS register indicates the operands were equal.
-  * REPE - Continue perform the action RCX times, or until the FLAGS register indicates the operands were not equal.
-* Often used by compilers to essentially inline C string functions (such as strlen, memset, memcpy, etc)
+  * **REP** - Continue performing the action RCX times.
+  * **REPNE** - Continue performing the action RCX times, or until the FLAGS register indicates the operands were equal.
+  * **REPE** - Continue performing the action RCX times, or until the FLAGS register indicates the operands were not equal.
+* These prefixes are often used by compilers to essentially inline C string functions (such as `strlen`, `memset`, `memcpy`, etc).
 
 ------------------------------------------------------------------------
 
