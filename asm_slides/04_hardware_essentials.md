@@ -88,6 +88,14 @@ mov ebx, 0x00   ; first parameter
 int 0x80        ; interrupt
 ```
 
+The following code will perform an exit(0) on Linux (x86-64):
+
+```nasm
+mov rax, 60   ; the system call number
+mov rdi, 0    ; first parameter
+syscall       ; interrupt
+```
+
 ```text
 https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
 ```
