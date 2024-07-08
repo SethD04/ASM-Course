@@ -410,13 +410,14 @@ rep stosb       ; Continue to store 0 till rcx
 * Conditional:
 
 ```nasm
-xor rax, rax
-mov rcx, 20
+xor rax, rax           ; Clear RAX (set RAX to 0) which will be used to search for NULL byte (0)
+mov rcx, 20            ; Set RCX to 20, the maximum number of bytes to check
 ; assume the buffer below contains a string
-mov rdi, _my_populated_buf
-repne scasb     ; continue until we hit a NULL byte
-; RCX now contains 20 - <the number of bytes we checked>
-; ...
+mov rdi, _my_populated_buf ; Load the address of the buffer into RDI
+repne scasb            ; Repeat until we find a NULL byte or RCX becomes zero
+; If a NULL byte is found, RCX will contain (remaining bytes to check + 1)
+; If no NULL byte is found, RCX will be zero
+; To get the number of bytes checked, calculate 20 - RCX
 ```
 
 ------------------------------------------------------------------------

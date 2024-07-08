@@ -149,8 +149,8 @@ mov rax, [gs:0x33]
 
 Further Reading (if interested):
 
-* The OSDev Wiki describes GDT initialization - http://wiki.osdev.org/GDT_Tutorial
-* The Segment Descriptor Cache - Mr. Robert Collins (from a Dr. Dobbs article) - http://www.rcollins.org/ddj/Aug98/Aug98.html
+* The OSDev Wiki describes GDT initialization - <http://wiki.osdev.org/GDT_Tutorial>
+* The Segment Descriptor Cache - Mr. Robert Collins (from a Dr. Dobbs article) - <http://www.rcollins.org/ddj/Aug98/Aug98.html>
 
 ## Other Processor Features
 
