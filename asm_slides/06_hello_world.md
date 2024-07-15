@@ -78,10 +78,10 @@ var1        resw    1       ; reserve a word
 
 * **Directives:**
   * There are two types of directives: *user-level* and *primitive*.
-  * Directives setup things such as processor mode, defining sections, lebels, externs, etc.
+  * Directives setup things such as processor mode, defining sections, labels, externs, etc.
   * **BITS** : The `BITS` directives specifies the processor operating mode the code is designed to run on.
     * EX: `BITS 16, BITS 32, BITS 64`
-  * **EXTERN** : Similar to C keyword `extern`. Declares a symbol which is not dfined in the module being assembled, but is assumed to be defined in some other module and needs to be refered to by this one.
+  * **EXTERN** : Similar to C keyword `extern`. Declares a symbol which is not defined in the module being assembled, but is assumed to be defined in some other module and needs to be refered to by this one.
   * **GLOBAL** : Other end of `EXTERN`. Allows another module to extern the symbol.
   * **SECTION** : Changes which section of the output file the code you write will be assembled into.
 * **Sections**
