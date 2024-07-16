@@ -208,14 +208,14 @@ message:
 * **With C Library:**
   * The instructions are the same for compiling the nasm file into an object. But from there, we must use gcc to link the object with the C library. Linux 64bit example:
 
-    `nasm -f elf64 file.s && gcc file.o && ./a.out`
+    `nasm -f elf64 file.s && gcc -no-pie file.o && ./a.out`
 
   * The command above is really three seperate commands seperated by `&&` signs... you can run each command individually if you desire.
   * First we compile:
     * `nasm -f elf64 file.s`
   * file.o is then ouputted...
   * Then we take file.o and compile/link it with gcc:
-    * `gcc file.o`
+    * `gcc -no-pie file.o`
   * Due to not specifying a output, the file `a.out` is created.
   * Lastly, we can run the program:
     * `./a.out`
@@ -233,7 +233,7 @@ message:
 
 Now that we know all of the above, mixing C and ASM shouldn't be so hard.
 
-* **C File**
+* **CPP File**
 
 ```c
 // A very simple program
@@ -267,4 +267,6 @@ first_func:
   * If using C++, use G++
   * When using G++/GCC, you also need to compile c code.
 * Example:
-  * `nasm -f elf64 file.s && gcc cFile.cpp file.o && ./a.out`
+  * `nasm -f elf64 file.s`
+  * `gcc cFile.cpp file.o`
+  * `./a.out`
