@@ -34,6 +34,12 @@
 
 ### My First Syscall
 
+x86 (32bit) Reference: <https://x86.syscall.sh/>
+
+x86_64 Reference <https://x64.syscall.sh/>
+
+Calling Convention: <https://wiki.osdev.org/Calling_Conventions>
+
 Wrapping system calls
 
 * x86
