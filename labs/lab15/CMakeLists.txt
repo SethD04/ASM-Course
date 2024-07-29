@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(Lab14 C CXX ASM)
+project(Lab15 C CXX ASM)
 
 enable_language(ASM_NASM)
 
@@ -14,4 +14,4 @@ file(GLOB LAB_CPP_FILES "*.cpp")
 set_source_files_properties(${LAB_ASM_FILES} PROPERTIES LANGUAGE ASM_NASM)
 
 
-add_executable(lab14 ${LAB_ASM_FILES} ${LAB_CPP_FILES})
+add_executable(lab15 ${LAB_ASM_FILES} ${LAB_CPP_FILES})
