@@ -84,7 +84,7 @@ int main()
 {
    memset(buffer, 0, sizeof(buffer));
    int read_len = open_read_obfuscated_file("obfuscated.txt", buffer, strlen(obfuscated_text));
-   if (buffer != NULL)
+   if (buffer[0] != 0)
    {
       printf("* BONUS: Read in obfuscated file *\n");
       printf("** Checking file contents **\n");
