@@ -33,12 +33,12 @@ void read_file_contents(const char *filename)
    }
 }
 
-void deobfuscate_buffer()
+void deobfuscate_buffer(char *buf, size_t length)
 {
-   memset(test_buffer, 0, sizeof(test_buffer));
+   memset(buf, 0, length);
    for (int i = 0; i < strlen(obfuscated_text); i++)
    {
-      test_buffer[i] = obfuscated_text[i] ^ 'X';
+      buf[i] = obfuscated_text[i] ^ 'X';
    }
 }
 
@@ -99,7 +99,7 @@ int main()
    }
 
    // instructor code: deobfuscate buffer
-   deobfuscate_buffer();
+   deobfuscate_buffer(test_buffer, sizeof(test_buffer));
 
    printf("* First Test: Deobfuscation *\n");
    // student code: process buffer
@@ -131,12 +131,26 @@ int main()
    // results stored in buffer
    read_file_contents("deobfuscated.txt");
    // check contents
-   mem_res = memcmp(test_buffer, buffer, strlen(obfuscated_text));
-   EQ_I(mem_res, 0);
-
-   if (mem_res == 0)
+   int flag = 0;
+   int mem_cmp = memcmp(test_buffer, buffer, strlen(obfuscated_text));
+   if (mem_cmp != 0)
    {
-      // print final result
+      deobfuscate_buffer(buffer, strlen(buffer));
+      mem_cmp = memcmp(test_buffer, buffer, strlen(obfuscated_text));
+   }
+   else
+   {
+      flag = 1;
+   }
+
+   EQ_I(mem_cmp, 0);
+   if (mem_cmp == 0 && flag == 0)
+   {
+      printf("Content written successfully but not correctly deobfuscated\n");
+   }
+   else if (mem_cmp == 0 && flag == 1)
+   {
+      printf("Deobfuscated content written successfully\n");
       printf("%s\n", buffer);
    }
 
